@@ -75,7 +75,7 @@ local file_select_active = false
 
 local function load_folder(file, add)
   
-  local sample_id = 0
+  local sample_id = params:get("skip_ids_when_loading")
   if add then
     for i = NUM_SAMPLES - 1, 0, -1 do
       if Timber.samples_meta[i].num_frames > 0 then
@@ -817,6 +817,8 @@ function init()
   
   params:add{type = "option", id = "follow", name = "Follow", options = {"Off", "Grid", "MIDI", "Both"}, default = 4}
   
+  params:add{type = "number", id = "skip_ids_when_loading", name = "Skip slots when loading", min = 0, max = 254, default = 0}
+
   params:add{type = "option", id = "display", name = "Display", options = {"IDs", "Notes"}, default = 1, action = function(value)
     if value == 1 then Timber.display = "id"
     else Timber.display = "note" end
